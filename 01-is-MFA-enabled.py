@@ -1,0 +1,25 @@
+#Check if MFA is enabled
+
+import requests
+import json
+import time
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+                         
+ise1 = '198.19.10.11'
+un = 'admin'
+pw = 'C1sco12345'
+
+headers = {
+  'accept': 'application/json',
+  'Content-Type': 'application/json',
+}
+
+payload = {}
+
+
+url = f"https://{ise1}:443/api/v1/duo-mfa/status"
+response = requests.request("GET", url, auth=(un, pw), headers=headers, data=payload, verify=False)
+print(response)
+print(response.text)
+
