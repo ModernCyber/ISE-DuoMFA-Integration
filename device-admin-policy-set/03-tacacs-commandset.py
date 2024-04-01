@@ -11,7 +11,8 @@ headers = {
   'accept': 'application/json',
   'Content-Type': 'application/json'
 }
- # Helpdesk_IOS_Cmds Command Set
+
+# Command Set
 
 payload = json.dumps({
       
@@ -37,6 +38,36 @@ payload = json.dumps({
   })
 
 url = f"https://{ise1}:443/ers/config/tacacscommandsets"
+response = requests.request("POST", url, auth=(un, pw), headers=headers, data=payload, verify=False)
+print(response)
+print(response.text)
+
+#Profile
+
+payload = json.dumps(
+      {
+      "TacacsProfile": {
+          "name": "Helpdesk_IOS_Priv15",
+          "description": "",
+          "sessionAttributes": {
+              "sessionAttributeList": [
+                  {
+                      "type": "MANDATORY",
+                      "name": "priv-lvl",
+                      "value": "1"
+                  },
+                  {
+                      "type": "MANDATORY",
+                      "name": "max_priv_lvl",
+                      "value": "15"
+                  }
+              ]
+          }
+      }
+    }  
+  )
+
+url = f"https://{ise1}:443/ers/config/tacacsprofile"
 response = requests.request("POST", url, auth=(un, pw), headers=headers, data=payload, verify=False)
 print(response)
 print(response.text)
